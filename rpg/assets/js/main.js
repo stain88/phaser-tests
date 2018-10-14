@@ -11,7 +11,14 @@ var BootScene = new Phaser.Class({
 
     preload: function ()
     {
-        // load the resources here
+        // map tiles
+        this.load.image('tiles', 'assets/map/spritesheet.png');
+
+        // map in json format
+        this.load.tilemapTiledJSON('map', 'assets/map/map.json');
+
+        // our two characters
+        this.load.spritesheet('player', 'assets/RPG_assets.png', { frameWidth: 16, frameHeight: 16 });
     },
 
     create: function ()
@@ -36,13 +43,19 @@ var WorldScene = new Phaser.Class({
     },
     create: function ()
     {
-        // create your world here
+        var map = this.make.tilemap({ key: 'map' });
+
+        var tiles = map.addTilesetImage('spritesheet', 'tiles');
+
+        var grass = map.createStaticLayer('Grass', tiles, 0, 0);
+        var obstacles = map.createStaticLayer('Obstacles', tiles, 0, 0);
+        obstacles.setCollisionByExclusion([-1]);
     }
 });
 
 var config = {
     type: Phaser.AUTO,
-    parent: 'content',
+    parent: 'game-container',
     width: 320,
     height: 240,
     zoom: 2,
