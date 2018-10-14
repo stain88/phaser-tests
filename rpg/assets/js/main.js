@@ -154,6 +154,9 @@ var WorldScene = new Phaser.Class({
         zone.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
         zone.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
 
+        // shake the world
+        this.cameras.main.shake(300);
+
         // start battle
     },
 });
